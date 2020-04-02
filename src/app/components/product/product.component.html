@@ -1,0 +1,58 @@
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">Add Product</h4>
+
+    <form #productForm="ngForm" (ngSubmit)="add(productForm)">
+    <div class="form-group">
+      <label>Product Name</label>
+      <input type="text" class="form-control" name="name" ngModel
+             required minlength="5" 
+             #ProductName="ngModel"
+             [ngClass]="{'is-invalid':ProductName.touched && ProductName.invalid}">
+      <div class="invalid-feedback">
+        <span *ngIf="ProductName?.errors?.required"> Product name is mandatory</span>
+        <span *ngIf="ProductName?.errors?.minlength"> Minimum length of product name should be {{ProductName.errors.minlength.requiredLength}}, enter more {{ProductName.errors.minlength.requiredLength - ProductName.errors.minlength.actualLength}} characters</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Product Type</label>
+      <select name="type" class="form-control" ngModel >
+        <option *ngFor="let t of productTypes" [value]="t" >{{t}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Amount</label>
+      <input type="number" class="form-control" name="amount" ngModel required min="1" #Amount="ngModel"
+       [ngClass]="{'is-invalid':Amount.touched && Amount.invalid}">
+       <div class="invalid-feedback">
+        Amount is mandatory (should be greater then zero)
+        </div>
+
+    </div>
+    <div class="form-group">
+      <label>Product Image URL</label>
+      <input type="text" class="form-control" name="imgUrl" ngModel>
+      <!-- <small id="helpId" class="form-text text-muted">Help text</small> -->
+    </div>
+
+    <div class="alert alert-info" role="alert">
+      <strong>Valid</strong> : {{ProductName.valid}} <br>
+      <strong>invalid</strong> {{ProductName.invalid}} <br>
+      <strong>dirty</strong> {{ProductName.dirty}} <br>
+      <strong>pristine</strong> {{ProductName.pristine}} <br>
+      <strong>touched</strong> {{ProductName.touched}} <br>
+      <strong>untouched</strong> {{ProductName.untouched}} <br>
+      <strong>errors</strong> {{ProductName.errors | json}} <br>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="productForm.invalid" > Submit </button>
+    <button type="reset" class="btn btn-secondary"> Reset </button>
+  </form>
+
+  <div class="alert alert-primary" role="alert">
+    <code>
+      {{productForm.value | json}}
+      </code>
+  </div>
+  </div>
+</div>
