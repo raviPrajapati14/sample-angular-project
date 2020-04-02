@@ -1,0 +1,11 @@
+Add Skill <input type="text" #Skill>
+<button (click)="addSkill(Skill.value)" >Add</button>
+<hr>
+<h1>Skills</h1>
+
+<h2 *ngIf="skills.length===0">Skills Empty</h2>
+<ul>
+    <li [ngClass]="{'even': (i%2)===0}"  *ngFor="let s of skills; let i=index">{{s}}
+    <button (click)="removeSkill(i)">X</button>    
+    </li>
+</ul>
